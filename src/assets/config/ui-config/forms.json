@@ -1,0 +1,593 @@
+{
+    "type": "opensaberLayoutSchema",
+    "version": "0.1",
+    "forms": [
+        {
+            "prerak-signup": {
+                "api": "/Prerak/invite",
+                "type": "entity",
+                "formclass": "row",
+                "header": "default",
+                "title": "REGISTER",
+                "isSignupForm": "true",
+                "langKey": "prerakStudent",
+                "fieldsets": [
+                    {
+                        "definition": "Prerak",
+                        "fields": [
+                            {
+                                "name": "fullName",
+                                "required": true,
+                                "validation": {
+                                    "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
+                                    "message": "NAME_NOT_VALID"
+                                }
+                            },
+                            {
+                                "name": "mobile",
+                                "required": true,
+                                "validation": {
+                                    "pattern": "[6-9]{1}[0-9]{9}",
+                                    "message": "MOBILE_NO_MUST_10_DIGIT"
+                                }
+                            },
+                            {
+                                "name": "t&c",
+                                "custom": true,
+                                "element": {
+                                    "title": "ACCEPT_TERMS_CONDITIONS",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "checkbox",
+                                            "fieldGroupClassName": "controls",
+                                            "className": "checkbox",
+                                            "templateOptions": {
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "redirectTo": "/profile/prerak"
+            }
+        },
+        {
+            "prerak-setup": {
+                "api": "/Prerak",
+                "type": "entity",
+                "redirectTo": "/profile/prerak",
+                "langKey": "prerakStudent",
+                "fieldsets": [
+                    {
+                        "definition": "Prerak",
+                        "privacyConfig": "PrerakOsConfig",
+                        "globalPrivacyConfig": "internal-access",
+                        "fields": [
+                            {
+                                "name": "fullName",
+                                "required": true,
+                                "validation": {
+                                    "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
+                                    "message": "NAME_NOT_VALID"
+                                }
+                            }, 
+                            {
+                                "name": "mobile",
+                                "required": true,
+                                "validation": {
+                                    "pattern": "[6-9]{1}[0-9]{9}",
+                                    "message": "MOBILE_NO_MUST_10_DIGIT"
+                                }
+                            },
+                            {
+                                "name": "qualification"
+                            },
+                            {
+                                "name": "gender"
+                            },
+                            {
+                                "name": "age"
+                            },
+                            {
+                                "name": "address"
+                            },
+                            {
+                                "name": "sourcingChannel"
+                            },
+                            {
+                                "name": "referrerIfApplicable"
+                            },
+                            {
+                                "name": "referenceId"
+                            },
+                            {
+                                "name": "typeOfPastExp"
+                            },
+                            {
+                                "name": "durationOfPastExp"
+                            },
+                            {
+                                "name": "candidateStatus"
+                            },
+                            {
+                                "name": "vfsMemberName"
+                            },
+                            {
+                                "name": "numberOfAttempts"
+                            },
+                            {
+                                "name": "callStatus"
+                            },
+                            {
+                                "name": "explainRROfPrerak"
+                            },
+                            {
+                                "name": "userInterestedRole"
+                            },
+                            {
+                                "name": "reasonForNotInterested"
+                            },
+                            {
+                                "name": "descForNotInterested"
+                            },
+                            {
+                                "name": "confirmName"
+                            },
+                            {
+                                "name": "confirmPhoneNumber"
+                            },
+                            {
+                                "name": "confirmMobNumber"
+                            }
+                            
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "prerak-education": {
+                "api": "/Prerak",
+                "type": "property:academicQualifications",
+                "redirectTo": "/profile/teacher",
+                "langKey": "prerakStudent",
+                "fieldsets": [
+                    {
+                        "definition": "AcademicQualification",
+                        "privacyConfig": "AffiliationOsConfig",
+                        "fields": [
+                            {
+                                "name": "instituteName",
+                                "required": true,
+                                "autocomplete": {
+                                    "apiURL": "https://demo-education-registry.xiv.in/registry/api/v1/Institute/search",
+                                    "body": {
+                                        "filters": {
+                                            "instituteName": {
+                                                "contains": "{{value}}"
+                                            },
+                                            "instituteAffiliation._osState": {
+                                                "eq": "PUBLISHED"
+                                            }
+                                        },
+                                        "limit": 20,
+                                        "offset": 0
+                                    },
+                                    "responseKey": "instituteName"
+                                },
+                                "autofill": {
+                                    "apiURL": "https://demo-education-registry.xiv.in/registry/api/v1/Institute/search",
+                                    "method": "POST",
+                                    "body": {
+                                        "filters": {
+                                            "instituteName": {
+                                                "contains": "{{value}}"
+                                            },
+                                            "instituteAffiliation._osStatus": "PUBLISHED"
+                                        },
+                                        "limit": 20,
+                                        "offset": 0
+                                    },
+                                    "fields": [
+                                        {
+                                            "instituteOSID": "osid"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "qualification",
+                                "required": true
+                            },
+                            {
+                                "name": "program"
+                            },
+                            {
+                                "name": "graduationYear",
+                                "required": true
+                            },
+                            {
+                                "name": "marks"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "teacher-experience": {
+                "api": "/Prerak",
+                "type": "property:experience",
+                "redirectTo": "/profile/prerak",
+                "langKey": "prerakStudent",
+                "fieldsets": [
+                    {
+                        "definition": "ExperienceType",
+                        "privacyConfig": "AffiliationOsConfig",
+                        "fields": [
+                            {
+                                "name": "instituteName",
+                                "required": true,
+                                "autocomplete": {
+                                    "apiURL": "https://demo-education-registry.xiv.in/registry/api/v1/Institute/search",
+                                    "body": {
+                                        "filters": {
+                                            "instituteName": {
+                                                "contains": "{{value}}"
+                                            },
+                                            "instituteAffiliation._osState": {
+                                                "eq": "PUBLISHED"
+                                            }
+                                        },
+                                        "limit": 20,
+                                        "offset": 0
+                                    },
+                                    "responseKey": "instituteName"
+                                },
+                                "autofill": {
+                                    "apiURL": "https://demo-education-registry.xiv.in/registry/api/v1/Institute/search",
+                                    "method": "POST",
+                                    "body": {
+                                        "filters": {
+                                            "instituteName": {
+                                                "contains": "{{value}}"
+                                            }
+                                        },
+                                        "limit": 20,
+                                        "offset": 0
+                                    },
+                                    "fields": [
+                                        {
+                                            "instituteOSID": "osid"
+                                        }
+                                    ],
+                                    "dropdowns": [
+                                        {
+                                            "grades": "affiliation[0].classes"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "employmentType",
+                                "required": true
+                            },
+                            {
+                                "name": "start",
+                                "required": true,
+                                "type": "date",
+                                "validation": {
+                                    "future": false
+                                }
+                            },
+                            {
+                                "name": "end",
+                                "type": "date",
+                                "validation": {
+                                    "greaterThan": "start",
+                                    "message": "END_DATE_GREATER_THAN_START_DATE"
+                                }
+                            },
+                            {
+                                "name": "teacherType",
+                                "required": true
+                            },
+                            {
+                                "name": "subjectsTaught",
+                                "type": "repeat"
+                            },
+                            {
+                                "name": "attest",
+                                "custom": true,
+                                "element": {
+                                    "title": "SEND_FOR_ATTENSTATION",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "checkbox",
+                                            "fieldGroupClassName": "controls",
+                                            "className": "checkbox",
+                                            "templateOptions": {
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "name": "notes",
+                                "custom": true,
+                                "element": {
+                                    "title": "NOTE",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "string",
+                                            "fieldGroupClassName": "controls",
+                                            "className": "input",
+                                            "hideExpression": "!model.attest"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "student-signup": {
+                "api": "/Student/invite",
+                "type": "entity",
+                "formclass": "row",
+                "header": "default",
+                "title": "REGISTER",
+                "isSignupForm": "true",
+                "langKey": "prerakStudent",
+                "fieldsets": [
+                    {
+                        "definition": "Student",
+                        "fields": [
+                            {
+                                "name": "identityDetails",
+                                "children": {
+                                    "definition": "IdentityDetails",
+                                    "title": false,
+                                    "fields": [
+                                        {
+                                            "name": "fullName",
+                                            "required": true,
+                                            "validation": {
+                                                "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
+                                                "message": "NAME_NOT_VALID"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "contactDetails",
+                                "children": {
+                                    "definition": "ContactDetails",
+                                    "title": false,
+                                    "fields": [
+                                        {
+                                            "name": "mobile",
+                                            "required": true,
+                                            "validation": {
+                                                "pattern": "[6-9]{1}[0-9]{9}",
+                                                "message": "MOBILE_NO_MUST_10_DIGIT"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "t&c",
+                                "custom": true,
+                                "element": {
+                                    "title": "ACCEPT_TERMS_CONDITIONS",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "checkbox",
+                                            "fieldGroupClassName": "controls",
+                                            "className": "checkbox",
+                                            "templateOptions": {
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "redirectTo": "/profile/prerak"
+            }
+        },
+        {
+            "student-setup": {
+                "api": "/Student",
+                "type": "entity",
+                "redirectTo": "/profile/student",
+                "langKey": "prerakStudent",
+                "fieldsets": [
+                    {
+                        "definition": "Student",
+                        "privacyConfig": "StudentOsConfig",
+                        "globalPrivacyConfig": "private-access",
+                        "fields": [
+                            {
+                                "name": "contactDetails"
+                            },
+                            {
+                                "name": "identityDetails",
+                                "children": {
+                                    "definition": "IdentityDetails",
+                                    "title": false,
+                                    "fields": [
+                                        {
+                                            "name": "fullName",
+                                            "required": true,
+                                            "validation": {
+                                                "pattern": "^[a-zA-Z]+ [a-zA-Z]+$",
+                                                "message": "NAME_NOT_VALID"
+                                            }
+                                        },
+                                        {
+                                            "name": "gender"
+                                        },
+                                        {
+                                            "name": "dob",
+                                            "required": true,
+                                            "type": "date",
+                                            "validation": {
+                                                "future": true
+                                            }
+                                        },
+                                        {
+                                            "name": "identityHolder",
+                                            "required": true
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "student-education": {
+                "api": "/Student",
+                "type": "property:educationDetails",
+                "redirectTo": "/profile/student",
+                "langKey": "prerakStudent",
+                "fieldsets": [
+                    {
+                        "definition": "EducationType",
+                        "privacyConfig": "AffiliationOsConfig",
+                        "fields": [
+                            {
+                                "name": "instituteOSID",
+                                "custom": true,
+                                "element": {
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "input",
+                                            "templateOptions": {
+                                                "type": "hidden"
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "name": "institute",
+                                "required": true,
+                                "autocomplete": {
+                                    "apiURL": "https://demo-education-registry.xiv.in/registry/api/v1/Institute/search",
+                                    "body": {
+                                        "filters": {
+                                            "instituteName": {
+                                                "contains": "{{value}}"
+                                            },
+                                            "instituteAffiliation._osState": {
+                                                "eq": "PUBLISHED"
+                                            }
+                                        },
+                                        "limit": 20,
+                                        "offset": 0
+                                    },
+                                    "responseKey": "instituteName"
+                                },
+                                "autofill": {
+                                    "apiURL": "https://demo-education-registry.xiv.in/registry/api/v1/Institute/search",
+                                    "method": "POST",
+                                    "body": {
+                                        "filters": {
+                                            "instituteName": {
+                                                "contains": "{{value}}"
+                                            }
+                                        },
+                                        "limit": 20,
+                                        "offset": 0
+                                    },
+                                    "fields": [
+                                        {
+                                            "instituteOSID": "osid"
+                                        }
+                                    ],
+                                    "dropdowns": [
+                                        {
+                                            "class": "affiliation[0].classes"
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "name": "class",
+                                "required": true
+                            },
+                            {
+                                "name": "currStudyHere",
+                                "custom": true,
+                                "element": {
+                                    "title": "CURRENTLY_STUDYING_HERE",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "checkbox",
+                                            "fieldGroupClassName": "controls",
+                                            "className": "checkbox",
+                                            "templateOptions": {
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "name": "documents",
+                                "format": "file",
+                                "multiple": true
+                            },
+                            {
+                                "name": "attest",
+                                "custom": true,
+                                "element": {
+                                    "title": "SEND_FOR_ATTENSTATION",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "checkbox",
+                                            "fieldGroupClassName": "controls",
+                                            "className": "checkbox",
+                                            "templateOptions": {
+                                                "required": true
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "name": "notes",
+                                "custom": true,
+                                "element": {
+                                    "title": "NOTE",
+                                    "widget": {
+                                        "formlyConfig": {
+                                            "type": "string",
+                                            "fieldGroupClassName": "controls",
+                                            "className": "input",
+                                            "hideExpression": "!model.attest"
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

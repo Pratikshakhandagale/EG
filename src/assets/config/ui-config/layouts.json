@@ -1,0 +1,73 @@
+{
+    "type": "opensaberLayoutSchema",
+    "version": "0.1",
+    "layouts": [
+       
+        {
+            "prerak": {
+                "api": "/Prerak",
+                "title": "TEACHER_PROFILE",
+                "langKey" : "prerakStudent",
+                "headerName" : "fullName",
+                "blocks": [
+                    {
+                        "definition": "Prerak",
+                        "title": "PERSONAL_DETAILS",
+                        "add": false,
+                        "edit": true,
+                        "editform":"prerak-setup",
+                        "fields": {
+                            "includes": ["*"],
+                            "excludes": []
+                        },
+                        "propertyShowFirst" : [ "fullName", "mobile", "email"]
+
+                    }
+                ]
+            }
+        },
+        {
+            "student": {
+                "api": "/Student",
+                "title": "STUDENT_PROFILE",
+                "langKey" : "teacherStudent",
+                "headerName" : "identityDetails.fullName",
+                "subHeadername" : "contactDetails.address.state,contactDetails.address.city",
+                "blocks": [
+                    {
+                        "definition": "Student",
+                        "title": "BASIC_DETAILS",
+                        "add": false,
+                        "edit": true,
+                        "editform":"student-setup",
+                        "fields": {
+                            "includes": ["*"],
+                            "excludes": ["educationDetails"]
+                        },
+                        "propertyShowFirst" : [ "fullName", "mobile", "email"]
+                    },
+                    {
+                        "definition": "Student",
+                        "title": "EDUCATION_DEATILS",
+                        "add": true,
+                        "addform":"student-education",
+                        "editform":"student-education",
+                        "edit": false,
+                        "claimEdit": true,
+                        "canRaiseClaim" : true,
+                        "multiple": true,
+                        "headValue" : "class",
+                        "fields": {
+                            "includes": ["educationDetails"]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "admin": {
+                "table": "admin-attestation"
+            }
+        }
+    ]
+}

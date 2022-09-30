@@ -1,0 +1,91 @@
+{
+    "type": "opensaberLayoutSchema",
+    "version": "0.1",
+    "limit": "15",
+    "tables": [
+        {
+            "teacher-attestation": {
+                "api": "/Teacher/claims",
+                "title": "TEACHER_ATTESTATIONS",
+                "fields": [
+                    {
+                        "name": "createdAt",
+                        "title": "SUBMITTED_DATE",
+                        "formate": "date"
+                    },
+                    {
+                        "name": "requestorName",
+                        "title": "NAME"
+                    },
+                    {
+                        "custom": true,
+                        "title": "ACTION",
+                        "buttonText": "ATTEST",
+                        "type": "button",
+                        "redirectTo": "/Teacher/attestation/teacher-attestation/:id"
+                    }
+                ]
+            }
+        },
+        {
+            "institute-attestation": {
+                "api": "/Institute/claims",
+                "title": "INSTITUTE_ATTESTATIONS",
+                "fields": [
+                    {
+                        "name": "createdAt",
+                        "title": "SUBMITTED_DATE",
+                        "formate": "date"
+                    },
+                    {
+                        "name": "requestorName",
+                        "title": "NAME"
+                    },
+                    {
+                        "custom": true,
+                        "title": "ACTION",
+                        "type": "button",
+                        "buttonText": "ATTEST",
+                        "redirectTo": "/Institute/attestation/institute-attestation/:id"
+                    }
+                ]
+            }
+        },
+        {
+            "admin-attestation": {
+                "api": "/Prerak/search",
+                "title": "CBSE_BOARD_ATTESTATIONS",
+                "fields": [
+                    {
+                        "name": "fullName",
+                        "title": "Full Name"
+                    },
+                    {
+                        "name": "gender",
+                        "title": "Gender"
+                    },
+                    {
+                        "name": "mobile",
+                        "title": "Contact Number"
+                    },
+                    {
+                        "name": "qualification",
+                        "title": "Education Details"
+                    },
+                    {
+                        "custom": true,
+                        "type": "button",
+                        "buttonText": "Edit",
+                        "redirectTo": "/admin/attestation/admin-attestation/:id"
+                    },
+                    {
+                        "custom": true,
+                        "type": "button",
+                        "buttonText": "View",
+                        "redirectTo": "/admin/attestation/admin-attestation/:id"
+                    }
+                ]
+            }
+        }
+    ]
+}
